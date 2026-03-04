@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourcePerFileMappings">
-    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/0db45d2e-fc5f-4311-83da-0c13d016069d/console.sql" value="0db45d2e-fc5f-4311-83da-0c13d016069d" />
     <file url="file://$PROJECT_DIR$/src/ra/phone_store_manager/utils/database/Data.sql" value="0db45d2e-fc5f-4311-83da-0c13d016069d" />
   </component>
 </project>
