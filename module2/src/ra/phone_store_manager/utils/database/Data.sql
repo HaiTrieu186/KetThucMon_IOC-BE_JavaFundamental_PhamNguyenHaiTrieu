@@ -57,3 +57,5 @@ drop table if exists admin;
 drop table if exists customer;
 drop table if exists invoice;
 drop table if exists invoice_details;
+
+select * from admin where username = ?;

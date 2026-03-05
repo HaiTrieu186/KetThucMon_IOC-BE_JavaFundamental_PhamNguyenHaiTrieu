@@ -12,29 +12,31 @@ public class Main {
 
         while (true) {
             System.out.println("\n"+
-                     Color.CYAN+"+"+"-".repeat(5)
-                    +Color.VANG+" HỆ THỐNG QUẢN LÝ CỬA HÀNG "
-                    +Color.CYAN +"-".repeat(5)+"+"+Color.RESET);
+                    Color.CYAN + Color.BOLD + "+" + "-".repeat(5)
+                    +Color.VANG + Color.BOLD + " HỆ THỐNG QUẢN LÝ CỬA HÀNG "
+                    +Color.CYAN + Color.BOLD + "-".repeat(5) + "+" + Color.RESET);
             System.out.printf(
-                    Color.CYAN+"|"+Color.RESET
-                    +" %-35s "+
-                    Color.CYAN+"|\n"+Color.RESET,
+                    Color.CYAN + Color.BOLD + "|" + Color.RESET
+                            +" %-35s "+
+                            Color.CYAN + Color.BOLD + "|\n" + Color.RESET,
                     "1. Đăng nhập admin");
             System.out.printf(
-                    Color.CYAN+"|"+Color.RESET
-                    +" %-35s "+
-                    Color.CYAN+"|\n"+Color.RESET,
+                    Color.CYAN + Color.BOLD + "|" + Color.RESET
+                            +" %-35s "+
+                            Color.CYAN + Color.BOLD + "|\n" + Color.RESET,
                     "2. Đăng ký admin");
             System.out.printf(
-                    Color.CYAN+"|"+Color.RESET
-                    +" %-35s "+
-                    Color.CYAN+"|\n"+Color.RESET,
+                    Color.CYAN + Color.BOLD + "|" + Color.RESET
+                            +" %-35s "+
+                            Color.CYAN + Color.BOLD + "|\n" + Color.RESET,
                     "3. Thoát");
             System.out.println(
-                    Color.CYAN+"+"+"-".repeat(37)+"+"+Color.RESET);
+                    Color.CYAN + Color.BOLD + "+" + "-".repeat(37) + "+" + Color.RESET);
 
             System.out.print(Color.XANH_LA+"- Mời bạn chọn chức năng"
                     +Color.RESET+" (1-3): ");
+
+
 
             choice = -1;
             try {
@@ -54,15 +56,15 @@ public class Main {
                     AdminView.showMenuRegister();
                     break;
                 case 3:
-                    System.out.println("\n"+Color.VANG+" --- "+
+                    System.out.println("\n"+Color.BOLD+Color.VANG+" +---- "+
                             Color.TIM+"Kết thúc chương trình, hẹn gặp lại !!!"+
-                            Color.VANG+" --- "+Color.RESET);
+                            Color.VANG+" ----+ "+Color.RESET);
                     sc.close();
                     System.exit(0);
                 default:
                     System.out.println(Color.DO+
                             "* Lỗi: Lựa chọn không hợp lệ, vui lòng chọn 1-3 !"
-                    + Color.RESET);
+                            + Color.RESET);
             }
         }
     }
