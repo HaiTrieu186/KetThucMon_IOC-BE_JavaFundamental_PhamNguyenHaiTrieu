@@ -34,6 +34,7 @@ public class AdminView {
                         + Color.DO +" <=="
                         +Color.RESET);
                 adminLogin = admin;
+                MainMenuView.showMainMenu();
                 return;
             } else {
                 attempt++;
