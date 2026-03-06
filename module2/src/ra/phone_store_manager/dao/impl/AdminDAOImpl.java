@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AdminDaoImpl implements IAdminDAO {
+public class AdminDAOImpl implements IAdminDAO {
     @Override
     public void addAdmin(Admin admin) {
         String sql= "insert into admin (username, password) values (?,?)";

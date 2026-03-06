@@ -2,7 +2,6 @@ package ra.phone_store_manager.presentation;
 
 import ra.phone_store_manager.business.IAdminService;
 import ra.phone_store_manager.business.impl.AdminSerciveImpl;
-import ra.phone_store_manager.dao.impl.AdminDaoImpl;
 import ra.phone_store_manager.model.Admin;
 import ra.phone_store_manager.utils.helper.Color;
 import ra.phone_store_manager.utils.helper.InputUtils;

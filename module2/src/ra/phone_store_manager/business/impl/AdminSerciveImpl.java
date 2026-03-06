@@ -2,11 +2,11 @@ package ra.phone_store_manager.business.impl;
 
 import org.mindrot.jbcrypt.BCrypt;
 import ra.phone_store_manager.business.IAdminService;
-import ra.phone_store_manager.dao.impl.AdminDaoImpl;
+import ra.phone_store_manager.dao.impl.AdminDAOImpl;
 import ra.phone_store_manager.model.Admin;
 
 public class AdminSerciveImpl implements IAdminService {
-    private static final AdminDaoImpl adminDao = new AdminDaoImpl();
+    private static final AdminDAOImpl adminDao = new AdminDAOImpl();
 
     @Override
     public void registerAdmin(Admin admin) {

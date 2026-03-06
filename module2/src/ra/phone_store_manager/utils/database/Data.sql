@@ -2,6 +2,12 @@ create database quanlydienthoai;
 create schema if not exists data;
 set search_path to data;
 
+drop table if exists invoice_details;
+drop table if exists invoice;
+drop table if exists customer;
+drop table if exists product;
+drop table if exists admin;
+
 -- 1. Tạo bảng Admin (Quản trị viên)
 CREATE TABLE if not exists admin
 (
@@ -52,10 +58,12 @@ CREATE TABLE if not exists invoice_details
     CONSTRAINT fk_product FOREIGN KEY (product_id) REFERENCES product (id) ON DELETE RESTRICT
 );
 
-drop table if exists product;
-drop table if exists admin;
-drop table if exists customer;
-drop table if exists invoice;
-drop table if exists invoice_details;
 
-select * from admin where username = ?;
+update data.product
+set name = ?,
+    brand= ?,
+    price= ?,
+    stock= ?
+where id=?;
+
+select * from product where brand ILIKE ?;
