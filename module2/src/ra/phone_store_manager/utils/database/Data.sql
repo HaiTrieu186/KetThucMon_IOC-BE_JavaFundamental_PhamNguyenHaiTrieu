@@ -83,3 +83,13 @@ VALUES ('iPhone 15 Pro Max 256GB', 'Apple', 34990000.00, 50),
        ('Oppo Reno 11 5G', 'Oppo', 10990000.00, 150),
        ('Vivo X100 Pro', 'Vivo', 25990000.00, 40),
        ('Asus ROG Phone 8 Pro', 'Asus', 28990000.00, 25);
+
+insert into customer (name, phone, email, address)
+values (?, ?, ?, ?);
+
+update customer
+set name = ?,
+    address=?,
+    email= ?,
+    phone= ?
+where id=?;

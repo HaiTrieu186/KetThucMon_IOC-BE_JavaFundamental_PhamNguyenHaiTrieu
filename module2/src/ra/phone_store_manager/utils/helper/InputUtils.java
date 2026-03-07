@@ -12,18 +12,6 @@ public class InputUtils {
     public static final String REGEX_PHONE_VN = "^(0|\\+84)[35789][0-9]{8}$"; // // Regex cho SĐT Việt Nam: Bắt đầu bằng 0 hoặc +84, theo sau là các đầu số hợp lệ (3,5,7,8,9) và 8 chữ số cuối
     // =====================================================
 
-
-    // ================== HÀM SẴN CHO EMAIL VÀ PHONE ==================
-    public static String getEmail(String prompt) {
-        return getStringWithRegex(prompt, REGEX_EMAIL, "Email không hợp lệ (VD: nguyenvanA@gmail.com)!");
-    }
-
-    public static String getPhoneNumberVN(String prompt) {
-        return getStringWithRegex(prompt, REGEX_PHONE_VN, "Số điện thoại không hợp lệ (Phải bắt đầu bằng 0 hoặc +84, và có đúng 10 số)!");
-    }
-    // ================================================================
-
-
     // Nhập chuỗi (String)
     public static String getString(String prompt) {
         while (true) {
@@ -101,6 +89,29 @@ public class InputUtils {
                 return number;
             }
             System.out.println(Color.DO + "* Lỗi: Số tiền phải lớn hơn 0!" + Color.RESET);
+        }
+    }
+
+
+
+    ///  CÁC HÀM NHẬP CHUỖI OPTIONAL (ENTER ĐỂ KHÔNG NHẬP)
+    public static String getOptionalString(String prompt) {
+        System.out.print( prompt);
+        String input = sc.nextLine().trim();
+        return input.isEmpty() ? null : input;
+    }
+
+    public static String getOptionalStringWithRegex(String prompt, String regex, String errorMsg) {
+        while (true) {
+            String input = getOptionalString(prompt);
+            if (input == null) {
+                return null;
+            }
+
+            if (input.matches(regex)) {
+                return input;
+            }
+            System.out.println(Color.DO + "  * Lỗi: " + errorMsg + Color.RESET);
         }
     }
 }

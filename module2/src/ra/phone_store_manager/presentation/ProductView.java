@@ -111,7 +111,10 @@ public class ProductView {
                     handleSearchByStock();
                     break;
                 case 9:
-                    System.out.println(Color.HONG_NHAT+"-- Quay về Menu chính --"+Color.RESET);
+                    System.out.println(Color.BOLD+
+                            Color.VANG+"==> "+
+                            Color.HONG_NHAT+"Quay về Menu chính"+
+                            Color.VANG+" <=="+ Color.RESET);
                     return;
                 default:
                     System.out.println(Color.DO +
@@ -156,7 +159,7 @@ public class ProductView {
         System.out.println(Color.XANH_DUONG + "  [Thông tin hiện tại của sản phẩm]" + Color.RESET);
         System.out.println("  - Tên SP: " + currentProduct.getName());
         System.out.println("  - Thương hiệu: " + currentProduct.getBrand());
-        System.out.println("  - Giá: " + currentProduct.getPrice() + " VNĐ");
+        System.out.println("  - Giá: " + FormatUtils.formatVND(currentProduct.getPrice()));
         System.out.println("  - Kho: " + currentProduct.getStock());
 
         // NHẬP THÔNG TIN MỚI
