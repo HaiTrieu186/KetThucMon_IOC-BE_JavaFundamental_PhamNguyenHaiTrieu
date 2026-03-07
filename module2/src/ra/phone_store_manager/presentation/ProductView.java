@@ -4,6 +4,7 @@ import ra.phone_store_manager.business.IProductService;
 import ra.phone_store_manager.business.impl.ProductServiceImpl;
 import ra.phone_store_manager.model.Product;
 import ra.phone_store_manager.utils.helper.Color;
+import ra.phone_store_manager.utils.helper.FormatUtils;
 import ra.phone_store_manager.utils.helper.InputUtils;
 
 import java.math.BigDecimal;
@@ -238,32 +239,31 @@ public class ProductView {
             return;
         }
 
-        String line = "+" + "-".repeat(6) + "+" + "-".repeat(27) + "+" + "-".repeat(17) + "+" + "-".repeat(17) + "+" + "-".repeat(10) + "+";
+        String line = "+" + "-".repeat(6) + "+" + "-".repeat(27) + "+" + "-".repeat(17) + "+" + "-".repeat(20) + "+" + "-".repeat(10) + "+";
         System.out.println(Color.VANG + line);
 
-        // | %-4s | %-25s | %-15s | %-15s | %-8s |
         System.out.printf("| "
                         + Color.CAM + "%-4s" + Color.RESET + Color.VANG + " | " + Color.RESET
                         + Color.CAM + "%-25s" + Color.RESET + Color.VANG + " | " + Color.RESET
                         + Color.CAM + "%-15s" + Color.RESET + Color.VANG + " | " + Color.RESET
-                        + Color.CAM + "%-15s" + Color.RESET + Color.VANG + " | " + Color.RESET
+                        + Color.CAM + "%-18s" + Color.RESET + Color.VANG + " | " + Color.RESET
                         + Color.CAM + "%-8s" + Color.RESET + Color.VANG + " |\n" + Color.RESET,
                 "ID", "Tên Sản Phẩm", "Thương Hiệu", "Giá (VNĐ)", "Kho");
         System.out.println(Color.VANG + line + Color.RESET);
 
-
-        //| %-4d | %-25s | %-15s | %-15.2f | %-8d |
         for (Product p : products) {
+            // Chuyển BigDecimal sang String VND (
+            String formattedPrice = FormatUtils.formatVND(p.getPrice());
             System.out.printf(Color.VANG + "| " + Color.RESET
                             + "%-4d" + Color.VANG + " | " + Color.RESET
                             + "%-25s" + Color.VANG + " | " + Color.RESET
                             + "%-15s" + Color.VANG + " | " + Color.RESET
-                            + "%-15.2f" + Color.VANG + " | " + Color.RESET + "%-8d "
-                            + Color.VANG + "|\n" + Color.RESET,
+                            + "%-18s" + Color.VANG + " | " + Color.RESET
+                            + "%-8d " + Color.VANG + "|\n" + Color.RESET,
                     p.getId(),
                     p.getName().length() > 25 ? p.getName().substring(0, 22) + "..." : p.getName(),
                     p.getBrand().length() > 15 ? p.getBrand().substring(0, 12) + "..." : p.getBrand(),
-                    p.getPrice(),
+                    formattedPrice,
                     p.getStock());
         }
 
