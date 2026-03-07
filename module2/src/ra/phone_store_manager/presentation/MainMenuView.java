@@ -70,9 +70,9 @@ public class MainMenuView {
                     break;
                 case 5:
                     System.out.println("\n"+Color.BOLD+Color.VANG+" +---- "+
-                            Color.TIM+" Đăng xuất, tạm biệt "+
+                            Color.HONG_NHAT+" Đăng xuất, tạm biệt "+
                             Color.RESET+AdminView.adminLogin.getUsername()+
-                            Color.TIM+" !!!"+ Color.VANG+" ----+ "+Color.RESET);
+                            Color.HONG_NHAT+" !!!"+ Color.VANG+" ----+ "+Color.RESET);
                     return;
                 default:
                     System.out.println(Color.DO+

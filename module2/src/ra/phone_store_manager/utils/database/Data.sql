@@ -84,12 +84,7 @@ VALUES ('iPhone 15 Pro Max 256GB', 'Apple', 34990000.00, 50),
        ('Vivo X100 Pro', 'Vivo', 25990000.00, 40),
        ('Asus ROG Phone 8 Pro', 'Asus', 28990000.00, 25);
 
-insert into customer (name, phone, email, address)
-values (?, ?, ?, ?);
 
-update customer
-set name = ?,
-    address=?,
-    email= ?,
-    phone= ?
-where id=?;
+
+insert into invoice_details (invoice_id, product_id, quantity, unit_price)
+values (?,?,?,?);

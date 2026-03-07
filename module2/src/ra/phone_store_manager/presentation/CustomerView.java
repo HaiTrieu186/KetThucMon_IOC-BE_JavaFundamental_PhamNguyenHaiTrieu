@@ -17,9 +17,9 @@ public class CustomerView {
 
         while (true) {
             System.out.println("\n" +
-                    Color.VANG + Color.BOLD + "+" + "-".repeat(10)
-                    + Color.CYAN + Color.BOLD + " QUẢN LÝ SẢN PHẨM "
-                    + Color.VANG + Color.BOLD + "-".repeat(9) + "+" + Color.RESET);
+                    Color.VANG + Color.BOLD + "+" + "-".repeat(9)
+                    + Color.CYAN + Color.BOLD + " QUẢN LÝ KHÁCH HÀNG "
+                    + Color.VANG + Color.BOLD + "-".repeat(8) + "+" + Color.RESET);
             System.out.printf(
                     Color.VANG + Color.BOLD + "|" + Color.RESET
                             + " %-35s " +
