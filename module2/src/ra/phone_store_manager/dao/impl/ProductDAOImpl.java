@@ -119,7 +119,7 @@ public class ProductDAOImpl implements IProductDAO {
             ResultSet rs = pstmt.executeQuery();
 
             Product product;
-            if (rs.next()) {
+            while (rs.next()) {
                 product = new Product(
                         rs.getInt("id"),
                         rs.getString("name"),
@@ -148,7 +148,7 @@ public class ProductDAOImpl implements IProductDAO {
             ResultSet rs = pstmt.executeQuery();
 
             Product product;
-            if (rs.next()) {
+            while (rs.next()) {
                 product = new Product(
                         rs.getInt("id"),
                         rs.getString("name"),
@@ -177,7 +177,7 @@ public class ProductDAOImpl implements IProductDAO {
             ResultSet rs = pstmt.executeQuery();
 
             Product product;
-            if (rs.next()) {
+            while  (rs.next()) {
                 product = new Product(
                         rs.getInt("id"),
                         rs.getString("name"),
@@ -206,7 +206,7 @@ public class ProductDAOImpl implements IProductDAO {
             ResultSet rs = pstmt.executeQuery();
 
             Product product;
-            if (rs.next()) {
+            while  (rs.next()) {
                 product = new Product(
                         rs.getInt("id"),
                         rs.getString("name"),
@@ -236,7 +236,7 @@ public class ProductDAOImpl implements IProductDAO {
             ResultSet rs = pstmt.executeQuery();
 
             Product product;
-            if (rs.next()) {
+            while  (rs.next()) {
                 product = new Product(
                         rs.getInt("id"),
                         rs.getString("name"),

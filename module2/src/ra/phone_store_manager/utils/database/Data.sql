@@ -66,4 +66,20 @@ set name = ?,
     stock= ?
 where id=?;
 
-select * from product where brand ILIKE ?;
+select *
+from product
+where brand ILIKE ?;
+
+INSERT INTO product (name, brand, price, stock)
+VALUES ('iPhone 15 Pro Max 256GB', 'Apple', 34990000.00, 50),
+       ('iPhone 14 128GB', 'Apple', 18990000.00, 120),
+       ('iPhone 13 128GB (Chính hãng VN/A)', 'Apple', 15490000.00, 85),
+       ('Samsung Galaxy S24 Ultra 512GB', 'Samsung', 37490000.00, 40),
+       ('Samsung Galaxy Z Fold 5', 'Samsung', 40990000.00, 15),
+       ('Samsung Galaxy A54 5G', 'Samsung', 9490000.00, 200),
+       ('Xiaomi 14 Pro', 'Xiaomi', 22990000.00, 80),
+       ('Xiaomi Redmi Note 13', 'Xiaomi', 5490000.00, 300),
+       ('Oppo Find N3 Flip', 'Oppo', 22990000.00, 35),
+       ('Oppo Reno 11 5G', 'Oppo', 10990000.00, 150),
+       ('Vivo X100 Pro', 'Vivo', 25990000.00, 40),
+       ('Asus ROG Phone 8 Pro', 'Asus', 28990000.00, 25);

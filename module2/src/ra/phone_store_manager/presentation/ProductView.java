@@ -7,67 +7,69 @@ import ra.phone_store_manager.utils.helper.Color;
 import ra.phone_store_manager.utils.helper.InputUtils;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
 public class ProductView {
     private static final IProductService productService = new ProductServiceImpl();
+
     public static void showProductMenu() {
         Scanner sc = new Scanner(System.in);
         int choice;
 
         while (true) {
             System.out.println("\n" +
-                    Color.TIM + Color.BOLD + "+" + "-".repeat(10)
-                    + Color.XANH_LA + Color.BOLD + " QUẢN LÝ SẢN PHẨM "
-                    + Color.TIM + Color.BOLD + "-".repeat(9) + "+" + Color.RESET);
+                    Color.VANG + Color.BOLD + "+" + "-".repeat(10)
+                    + Color.CYAN + Color.BOLD + " QUẢN LÝ SẢN PHẨM "
+                    + Color.VANG + Color.BOLD + "-".repeat(9) + "+" + Color.RESET);
             System.out.printf(
-                    Color.TIM + Color.BOLD + "|" + Color.RESET
+                    Color.VANG + Color.BOLD + "|" + Color.RESET
                             + " %-35s " +
-                            Color.TIM + Color.BOLD + "|\n" + Color.RESET,
+                            Color.VANG + Color.BOLD + "|\n" + Color.RESET,
                     "1. Hiển thị danh sách sản phẩm");
             System.out.printf(
-                    Color.TIM + Color.BOLD + "|" + Color.RESET
+                    Color.VANG + Color.BOLD + "|" + Color.RESET
                             + " %-35s " +
-                            Color.TIM + Color.BOLD + "|\n" + Color.RESET,
+                            Color.VANG + Color.BOLD + "|\n" + Color.RESET,
                     "2. Thêm sản phẩm mới");
             System.out.printf(
-                    Color.TIM + Color.BOLD + "|" + Color.RESET
+                    Color.VANG + Color.BOLD + "|" + Color.RESET
                             + " %-35s " +
-                            Color.TIM + Color.BOLD + "|\n" + Color.RESET,
+                            Color.VANG + Color.BOLD + "|\n" + Color.RESET,
                     "3. Cập nhật thông tin sản phẩm");
             System.out.printf(
-                    Color.TIM + Color.BOLD + "|" + Color.RESET
+                    Color.VANG + Color.BOLD + "|" + Color.RESET
                             + " %-35s " +
-                            Color.TIM + Color.BOLD + "|\n" + Color.RESET,
+                            Color.VANG + Color.BOLD + "|\n" + Color.RESET,
                     "4. Xóa sản phẩm theo ID");
             System.out.printf(
-                    Color.TIM + Color.BOLD + "|" + Color.RESET
+                    Color.VANG + Color.BOLD + "|" + Color.RESET
                             + " %-35s " +
-                            Color.TIM + Color.BOLD + "|\n" + Color.RESET,
+                            Color.VANG + Color.BOLD + "|\n" + Color.RESET,
                     "5. Tìm kiếm theo Brand (Nhãn hiệu)");
             System.out.printf(
-                    Color.TIM + Color.BOLD + "|" + Color.RESET
+                    Color.VANG + Color.BOLD + "|" + Color.RESET
                             + " %-35s " +
-                            Color.TIM + Color.BOLD + "|\n" + Color.RESET,
+                            Color.VANG + Color.BOLD + "|\n" + Color.RESET,
                     "6. Tìm kiếm theo tên sản phẩm");
             System.out.printf(
-                    Color.TIM + Color.BOLD + "|" + Color.RESET
+                    Color.VANG + Color.BOLD + "|" + Color.RESET
                             + " %-35s " +
-                            Color.TIM + Color.BOLD + "|\n" + Color.RESET,
+                            Color.VANG + Color.BOLD + "|\n" + Color.RESET,
                     "7. Tìm kiếm theo khoảng giá");
             System.out.printf(
-                    Color.TIM + Color.BOLD + "|" + Color.RESET
+                    Color.VANG + Color.BOLD + "|" + Color.RESET
                             + " %-35s " +
-                            Color.TIM + Color.BOLD + "|\n" + Color.RESET,
+                            Color.VANG + Color.BOLD + "|\n" + Color.RESET,
                     "8. Tìm kiếm theo tồn kho");
             System.out.printf(
-                    Color.TIM + Color.BOLD + "|" + Color.RESET
+                    Color.VANG + Color.BOLD + "|" + Color.RESET
                             + " %-35s " +
-                            Color.TIM + Color.BOLD + "|\n" + Color.RESET,
+                            Color.VANG + Color.BOLD + "|\n" + Color.RESET,
                     "9. Quay lại menu chính");
             System.out.println(
-                    Color.TIM + Color.BOLD + "+" + "-".repeat(37) + "+" + Color.RESET);
+                    Color.VANG + Color.BOLD + "+" + "-".repeat(37) + "+" + Color.RESET);
 
             System.out.print(Color.XANH_DUONG + "- Mời bạn chọn chức năng"
                     + Color.RESET + " (1-9): ");
@@ -96,10 +98,10 @@ public class ProductView {
                     handleDeleteProduct();
                     break;
                 case 5:
-                    handleSearchByName();
+                    handleSearchByBrand();
                     break;
                 case 6:
-                    handleSearchByBrand();
+                    handleSearchByName();
                     break;
                 case 7:
                     handleSearchByPriceRange();
@@ -107,6 +109,9 @@ public class ProductView {
                 case 8:
                     handleSearchByStock();
                     break;
+                case 9:
+                    System.out.println(Color.HONG_NHAT+"-- Quay về Menu chính --"+Color.RESET);
+                    return;
                 default:
                     System.out.println(Color.DO +
                             "* Lỗi: Lựa chọn không hợp lệ, vui lòng chọn 1-9 !"
@@ -236,12 +241,25 @@ public class ProductView {
         String line = "+" + "-".repeat(6) + "+" + "-".repeat(27) + "+" + "-".repeat(17) + "+" + "-".repeat(17) + "+" + "-".repeat(10) + "+";
         System.out.println(Color.VANG + line);
 
-        System.out.printf("| %-4s | %-25s | %-15s | %-15s | %-8s |\n",
+        // | %-4s | %-25s | %-15s | %-15s | %-8s |
+        System.out.printf("| "
+                        + Color.CAM + "%-4s" + Color.RESET + Color.VANG + " | " + Color.RESET
+                        + Color.CAM + "%-25s" + Color.RESET + Color.VANG + " | " + Color.RESET
+                        + Color.CAM + "%-15s" + Color.RESET + Color.VANG + " | " + Color.RESET
+                        + Color.CAM + "%-15s" + Color.RESET + Color.VANG + " | " + Color.RESET
+                        + Color.CAM + "%-8s" + Color.RESET + Color.VANG + " |\n" + Color.RESET,
                 "ID", "Tên Sản Phẩm", "Thương Hiệu", "Giá (VNĐ)", "Kho");
-        System.out.println(line + Color.RESET);
+        System.out.println(Color.VANG + line + Color.RESET);
 
+
+        //| %-4d | %-25s | %-15s | %-15.2f | %-8d |
         for (Product p : products) {
-            System.out.printf("| %-4d | %-25s | %-15s | %-15.2f | %-8d |\n",
+            System.out.printf(Color.VANG + "| " + Color.RESET
+                            + "%-4d" + Color.VANG + " | " + Color.RESET
+                            + "%-25s" + Color.VANG + " | " + Color.RESET
+                            + "%-15s" + Color.VANG + " | " + Color.RESET
+                            + "%-15.2f" + Color.VANG + " | " + Color.RESET + "%-8d "
+                            + Color.VANG + "|\n" + Color.RESET,
                     p.getId(),
                     p.getName().length() > 25 ? p.getName().substring(0, 22) + "..." : p.getName(),
                     p.getBrand().length() > 15 ? p.getBrand().substring(0, 12) + "..." : p.getBrand(),

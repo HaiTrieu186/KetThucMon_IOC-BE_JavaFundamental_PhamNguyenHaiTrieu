@@ -14,4 +14,7 @@ public interface Color {
     String TIM = "\u001B[35m";
     String CYAN = "\u001B[36m";
     String TRANG = "\u001B[37m";
+    String CAM = "\u001B[38;5;208m";
+    String HONG_NHAT = "\u001B[38;5;213m";
+    String TIM_NHAT = "\u001B[38;5;141m";
 }
