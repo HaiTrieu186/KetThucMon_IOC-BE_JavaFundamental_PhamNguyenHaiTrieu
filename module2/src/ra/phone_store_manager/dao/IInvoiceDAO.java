@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface IInvoiceDAO {
-    boolean createInvoice(Invoice invoice);
+    int createInvoice(Invoice invoice);
     boolean createInvoiceDetails(InvoiceDetails invoiceDetails);
     Invoice findInvoiceByID(int id);
     List<Invoice> getAllInvoices();

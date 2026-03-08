@@ -7,7 +7,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface IInvoiceService {
-    boolean addInvoice(Invoice invoice);
+    int addInvoice(Invoice invoice);
+    boolean addInvoiceDetails(InvoiceDetails invoiceDetails);
     List<Invoice> getAllInvoices();
     List<Invoice> findInvoicesByCustomerName(String name);
     List<Invoice> findInvoicesByCreateDate(LocalDate createDate);

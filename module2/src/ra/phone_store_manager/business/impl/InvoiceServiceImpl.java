@@ -12,9 +12,13 @@ import java.util.List;
 public class InvoiceServiceImpl implements IInvoiceService {
     private static final IInvoiceDAO invoiceDAO = new InvoiceDAOImpl();
     @Override
-    public boolean addInvoice(Invoice invoice) {
-
+    public int addInvoice(Invoice invoice) {
         return invoiceDAO.createInvoice(invoice);
+    }
+
+    @Override
+    public boolean addInvoiceDetails(InvoiceDetails invoiceDetails) {
+        return invoiceDAO.createInvoiceDetails(invoiceDetails);
     }
 
     @Override

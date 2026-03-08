@@ -2,6 +2,9 @@ package ra.phone_store_manager.utils.helper;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 public class FormatUtils {
@@ -19,5 +22,21 @@ public class FormatUtils {
         currencyVN.setMaximumFractionDigits(2);
 
         return currencyVN.format(amount);
+    }
+
+    public static String formatDate(LocalDateTime dateTime) {
+        if (dateTime == null) {
+            return "Trống";
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return dateTime.format(formatter);
+    }
+
+    public static String formatDate(LocalDate date) {
+        if (date == null) {
+            return "Trống";
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return date.format(formatter);
     }
 }

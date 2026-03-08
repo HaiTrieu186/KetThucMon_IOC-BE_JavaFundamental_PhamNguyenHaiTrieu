@@ -1,6 +1,9 @@
 package ra.phone_store_manager.utils.helper;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class InputUtils {
@@ -92,6 +95,25 @@ public class InputUtils {
         }
     }
 
+    public static LocalDate getLocalDate(String message) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        while (true) {
+            System.out.print(message);
+            String input = sc.nextLine().trim(); // Giả sử biến scanner của bạn tên là scanner
+
+            if (input.isEmpty()) {
+                System.out.println(Color.DO + "  * Lỗi: Không được để trống. Vui lòng nhập ngày!" + Color.RESET);
+                continue;
+            }
+
+            try {
+                return LocalDate.parse(input, formatter);
+            } catch (DateTimeParseException e) {
+                System.out.println(Color.DO + "  * Lỗi: Định dạng ngày không hợp lệ! Vui lòng nhập đúng dd/MM/yyyy (VD: 08/03/2026)." + Color.RESET);
+            }
+        }
+    }
 
 
     ///  CÁC HÀM NHẬP CHUỖI OPTIONAL (ENTER ĐỂ KHÔNG NHẬP)

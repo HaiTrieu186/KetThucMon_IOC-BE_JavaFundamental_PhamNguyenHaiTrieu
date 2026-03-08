@@ -16,24 +16,30 @@ import java.util.List;
 
 public class InvoiceDAOImpl implements IInvoiceDAO {
     @Override
-    public boolean createInvoice(Invoice invoice) {
+    public int createInvoice(Invoice invoice) {
         String sql= """
                 insert into invoice (customer_id, total_amount)
                 values (?,?);
                 """;
         try (Connection conn = ConnectionDB.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)
+             PreparedStatement pstmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
             pstmt.setInt(1, invoice.getCustomer_id());
             pstmt.setBigDecimal(2, invoice.getTotal_amount());
 
             int result =pstmt.executeUpdate();
-            return result > 0;
+            if (result > 0){
+                try (ResultSet rs = pstmt.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        return rs.getInt(1); // Trả về cái ID
+                    }
+                }
+            };
 
         } catch (SQLException e) {
             System.out.println(Color.DO + "Lỗi SQL: " + e.getMessage() + Color.RESET);
-            return false;
         }
+        return-1;
     }
 
     @Override
