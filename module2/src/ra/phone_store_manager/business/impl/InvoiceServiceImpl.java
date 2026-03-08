@@ -6,6 +6,7 @@ import ra.phone_store_manager.dao.impl.InvoiceDAOImpl;
 import ra.phone_store_manager.model.Invoice;
 import ra.phone_store_manager.model.InvoiceDetails;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -39,5 +40,20 @@ public class InvoiceServiceImpl implements IInvoiceService {
     @Override
     public List<InvoiceDetails> getInvoiceDetailsByInvoiceID(int id) {
         return invoiceDAO.findInvoiceDetailsByInvoiceID(id);
+    }
+
+    @Override
+    public BigDecimal getRevenueByDate(LocalDate date) {
+        return invoiceDAO.calculateRevenueByDate(date);
+    }
+
+    @Override
+    public BigDecimal getRevenueByMonth(int month, int year) {
+        return invoiceDAO.calculateRevenueByMonth(month, year);
+    }
+
+    @Override
+    public BigDecimal getRevenueByYear(int year) {
+        return invoiceDAO.calculateRevenueByYear(year);
     }
 }
