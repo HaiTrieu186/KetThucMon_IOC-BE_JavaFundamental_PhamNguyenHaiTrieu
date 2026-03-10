@@ -190,22 +190,11 @@ public class InvoiceView {
         invoice.setTotal_amount(totalAmount);
         invoice.setCustomer_id(customerId);
 
-        int invoiceId = invoiceService.addInvoice(invoice);
 
-        if (invoiceId == -1) {
+        if ( !invoiceService.addInvoice(invoice, cart)) {
             System.out.println(Color.DO + "=> Lỗi: Thêm hóa đơn thất bại!" + Color.RESET);
         } else {
-            System.out.println(Color.BOLD + Color.XANH_LA + "==> Tạo hóa đơn thành công với ID - " + invoiceId + " !!!" + Color.RESET);
-
-            for (InvoiceDetails item : cart) {
-                item.setInvoice_id(invoiceId);
-                invoiceService.addInvoiceDetails(item);
-
-                // TRỪ TỒN KHO (Sau khi tạo hóa đơn)
-                Product p = productService.getProductById(item.getProduct_id());
-                p.setStock(p.getStock() - item.getQuantity());
-                productService.updateProduct(p);
-            }
+            System.out.println(Color.BOLD + Color.XANH_LA + "==> Tạo hóa đơn thành công với !!!" + Color.RESET);
         }
     }
 

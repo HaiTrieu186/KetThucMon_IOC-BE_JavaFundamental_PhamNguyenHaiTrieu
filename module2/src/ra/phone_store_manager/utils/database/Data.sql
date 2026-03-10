@@ -85,3 +85,13 @@ VALUES ('iPhone 15 Pro Max 256GB', 'Apple', 34990000.00, 50),
        ('Asus ROG Phone 8 Pro', 'Asus', 28990000.00, 25);
 
 
+insert into invoice (customer_id, created_at, total_amount)
+values (?,?,?);
+
+insert into invoice_details (invoice_id, product_id, quantity, unit_price)
+values (?,?,?,?);
+
+update product
+set stock = stock - ?
+where id = ?;
+

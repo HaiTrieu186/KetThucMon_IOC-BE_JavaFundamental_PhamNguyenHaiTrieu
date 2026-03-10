@@ -14,54 +14,84 @@ import java.util.List;
 
 public class InvoiceDAOImpl implements IInvoiceDAO {
     @Override
-    public int createInvoice(Invoice invoice) {
-        String sql = """
-                insert into invoice (customer_id, total_amount)
-                values (?,?);
-                """;
-        try (Connection conn = ConnectionDB.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)
-        ) {
-            pstmt.setInt(1, invoice.getCustomer_id());
-            pstmt.setBigDecimal(2, invoice.getTotal_amount());
+    public boolean createInvoice(Invoice invoice, List<InvoiceDetails> invoiceDetails) {
+       Connection conn =null;
+       try {
+           conn = ConnectionDB.getConnection();
+           int newInvoiceID=-1;
 
-            int result = pstmt.executeUpdate();
-            if (result > 0) {
-                try (ResultSet rs = pstmt.getGeneratedKeys()) {
-                    if (rs.next()) {
-                        return rs.getInt(1); // Trả về cái ID
-                    }
-                }
-            }
-            ;
+           String sqlCreateInvoice = """
+                   insert into invoice (customer_id, total_amount)
+                   values (?,?);
+                   """;
+           String sqlCreateInvoiceDetail= """
+                   insert into invoice_details (invoice_id, product_id, quantity, unit_price)
+                   values (?,?,?,?);
+                   """;
+           String sqlUpdateProductStock = """
+                   update product
+                   set stock = stock - ?
+                   where id = ?;
+                   """;
 
-        } catch (SQLException e) {
-            System.out.println(Color.DO + "Lỗi SQL: " + e.getMessage() + Color.RESET);
-        }
-        return -1;
-    }
+           conn.setAutoCommit(false);
 
-    @Override
-    public boolean createInvoiceDetails(InvoiceDetails invoiceDetails) {
-        String sql = """
-                insert into invoice_details (invoice_id, product_id, quantity, unit_price)
-                values (?,?,?,?);
-                """;
-        try (Connection conn = ConnectionDB.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)
-        ) {
-            pstmt.setInt(1, invoiceDetails.getInvoice_id());
-            pstmt.setInt(2, invoiceDetails.getProduct_id());
-            pstmt.setInt(3, invoiceDetails.getQuantity());
-            pstmt.setBigDecimal(4, invoiceDetails.getUnit_price());
+           PreparedStatement pCreateInvoice=conn.prepareStatement(sqlCreateInvoice);
+           PreparedStatement pCreateInvoiceDetail=conn.prepareStatement(sqlCreateInvoiceDetail);
+           PreparedStatement pUpdateStock=conn.prepareStatement(sqlUpdateProductStock);
 
-            int result = pstmt.executeUpdate();
-            return result > 0;
 
-        } catch (SQLException e) {
-            System.out.println(Color.DO + "Lỗi SQL: " + e.getMessage() + Color.RESET);
-            return false;
-        }
+           /// Tạo hóa đơn
+           pCreateInvoice.setInt(1,invoice.getCustomer_id());
+           pCreateInvoice.setBigDecimal(2,invoice.getTotal_amount());
+           pCreateInvoice.executeUpdate();
+
+           ResultSet rs=pCreateInvoice.getGeneratedKeys();
+
+           if(rs.next()){
+               newInvoiceID=rs.getInt(1);
+           }
+
+           /// Tạo danh sách chi tiết hóa đơn
+           for (InvoiceDetails invoiceDetail : invoiceDetails) {
+               pCreateInvoiceDetail.setInt(1, newInvoiceID);
+               pCreateInvoiceDetail.setInt(2, invoiceDetail.getProduct_id());
+               pCreateInvoiceDetail.setInt(3, invoiceDetail.getQuantity());
+               pCreateInvoiceDetail.setBigDecimal(4, invoiceDetail.getUnit_price());
+               pCreateInvoiceDetail.executeUpdate();
+
+               /// Trừ tồn kho tương ứng
+               pUpdateStock.setInt(1, invoiceDetail.getQuantity());
+               pUpdateStock.setInt(2, invoiceDetail.getProduct_id());
+               pUpdateStock.executeUpdate();
+           }
+
+           conn.commit();
+           return true;
+
+       } catch (SQLException e) {
+           System.out.println(Color.DO + "Lỗi SQL: " + e.getMessage() + Color.RESET);
+           if (conn != null) {
+               try {
+                   conn.rollback();
+                   System.out.println("Đã Rollback dữ liệu!");
+               } catch (SQLException ex) {
+                   System.out.println(Color.DO + "Lỗi SQL: " + ex.getMessage() + Color.RESET);
+               }
+           }
+           return false;
+
+       } finally {
+           if (conn != null) {
+               try {
+                   conn.setAutoCommit(true);
+                   conn.close();
+               } catch (SQLException e) {
+                   System.out.println(Color.DO + "Lỗi SQL: " + e.getMessage() + Color.RESET);
+               }
+           }
+       }
+
     }
 
     @Override

@@ -9,8 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface IInvoiceDAO {
-    int createInvoice(Invoice invoice);
-    boolean createInvoiceDetails(InvoiceDetails invoiceDetails);
+    boolean createInvoice(Invoice invoice,  List<InvoiceDetails> invoiceDetails);
     Invoice findInvoiceByID(int id);
     List<Invoice> getAllInvoices();
     List<Invoice> findInvoicesByCustomerName(String customerName);
