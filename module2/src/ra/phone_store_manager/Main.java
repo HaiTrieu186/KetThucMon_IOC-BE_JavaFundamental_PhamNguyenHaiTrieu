@@ -9,27 +9,26 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int choice;
+        String[] menuOptions = {
+                "1. Đăng nhập admin",
+                "2. Đăng ký admin",
+                "3. Thoát",
+        };
 
         while (true) {
             System.out.println("\n"+
                     Color.CYAN + Color.BOLD + "+" + "-".repeat(5)
                     +Color.VANG + Color.BOLD + " HỆ THỐNG QUẢN LÝ CỬA HÀNG "
                     +Color.CYAN + Color.BOLD + "-".repeat(5) + "+" + Color.RESET);
-            System.out.printf(
-                    Color.CYAN + Color.BOLD + "|" + Color.RESET
-                            +" %-35s "+
-                            Color.CYAN + Color.BOLD + "|\n" + Color.RESET,
-                    "1. Đăng nhập admin");
-            System.out.printf(
-                    Color.CYAN + Color.BOLD + "|" + Color.RESET
-                            +" %-35s "+
-                            Color.CYAN + Color.BOLD + "|\n" + Color.RESET,
-                    "2. Đăng ký admin");
-            System.out.printf(
-                    Color.CYAN + Color.BOLD + "|" + Color.RESET
-                            +" %-35s "+
-                            Color.CYAN + Color.BOLD + "|\n" + Color.RESET,
-                    "3. Thoát");
+
+            for (String option : menuOptions) {
+                System.out.printf(
+                        Color.CYAN + Color.BOLD + "|" + Color.RESET
+                                +" %-35s "+
+                                Color.CYAN + Color.BOLD + "|\n" + Color.RESET,
+                        option);
+            }
+
             System.out.println(
                     Color.CYAN + Color.BOLD + "+" + "-".repeat(37) + "+" + Color.RESET);
 

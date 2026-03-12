@@ -8,37 +8,28 @@ public class MainMenuView {
     public static void showMainMenu(){
         Scanner sc = new Scanner(System.in);
         int choice;
+        String[] menuOptions = {
+                "1. Quản lý sản phẩm điện thoại",
+                "2. Quản lý khách hàng",
+                "3. Quản lý hóa đơn",
+                "4. Thống kê doanh thu",
+                "5. Đăng xuất"
+        };
 
         while (true) {
             System.out.println("\n"+
                     Color.TIM + Color.BOLD + "+" + "-".repeat(13)
                             +Color.XANH_LA + Color.BOLD + " MAIN MENU "
                             +Color.TIM + Color.BOLD + "-".repeat(13) + "+" + Color.RESET);
-            System.out.printf(
-                    Color.TIM + Color.BOLD + "|" + Color.RESET
-                            +" %-35s "+
-                            Color.TIM + Color.BOLD + "|\n" + Color.RESET,
-                    "1. Quản lý sản phẩm điện thoại");
-            System.out.printf(
-                    Color.TIM + Color.BOLD + "|" + Color.RESET
-                            +" %-35s "+
-                            Color.TIM + Color.BOLD + "|\n" + Color.RESET,
-                    "2. Quản lý khách hàng");
-            System.out.printf(
-                    Color.TIM + Color.BOLD + "|" + Color.RESET
-                            +" %-35s "+
-                            Color.TIM + Color.BOLD + "|\n" + Color.RESET,
-                    "3. Quản lý hóa đơn");
-            System.out.printf(
-                    Color.TIM + Color.BOLD + "|" + Color.RESET
-                            +" %-35s "+
-                            Color.TIM + Color.BOLD + "|\n" + Color.RESET,
-                    "4. Thống kê doanh thu");
-            System.out.printf(
-                    Color.TIM + Color.BOLD + "|" + Color.RESET
-                            +" %-35s "+
-                            Color.TIM + Color.BOLD + "|\n" + Color.RESET,
-                    "5. Đăng xuất");
+
+            for (String option : menuOptions) {
+                System.out.printf(
+                        Color.TIM + Color.BOLD + "|" + Color.RESET
+                                +" %-35s "+
+                                Color.TIM + Color.BOLD + "|\n" + Color.RESET,
+                        option);
+            }
+
             System.out.println(
                     Color.TIM + Color.BOLD + "+" + "-".repeat(37) + "+" + Color.RESET);
 
@@ -66,7 +57,7 @@ public class MainMenuView {
                     InvoiceView.showInvoiceMenu();
                     break;
                 case 4:
-                    StatisticView.showSatisticView();
+                    StatisticView.showStatisticView();
                     break;
                 case 5:
                     System.out.println("\n"+Color.BOLD+Color.VANG+" +---- "+

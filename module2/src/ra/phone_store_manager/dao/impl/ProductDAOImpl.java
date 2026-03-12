@@ -82,6 +82,24 @@ public class ProductDAOImpl implements IProductDAO {
     }
 
     @Override
+    public boolean isProductInInvoice(int productId) {
+        String sql = "SELECT COUNT(*) FROM invoice_details WHERE product_id = ?";
+        try (Connection conn = ConnectionDB.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, productId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
     public Product findProductByID(int id) {
 
         String sql = "select * from product where id=?";

@@ -12,7 +12,7 @@ public class InputUtils {
 
     // ================== REGEX CONSTANTS ==================
     public static final String REGEX_EMAIL = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
-    public static final String REGEX_PHONE_VN = "^(0|\\+84)[35789][0-9]{8}$"; // // Regex cho SĐT Việt Nam: Bắt đầu bằng 0 hoặc +84, theo sau là các đầu số hợp lệ (3,5,7,8,9) và 8 chữ số cuối
+    public static final String REGEX_PHONE_VN = "^(0|\\+84)[35789][0-9]{8}$"; // Regex SĐT Việt Nam: Bắt đầu bằng 0 hoặc +84, theo sau là các đầu số hợp lệ (3,5,7,8,9) và 8 chữ số cuối
     // =====================================================
 
     // Nhập chuỗi (String)
@@ -28,18 +28,7 @@ public class InputUtils {
         }
     }
 
-    // Nhập chuỗi với Regex truyền vào
-    public static String getStringWithRegex(String prompt, String regex, String errorMsg) {
-        while (true) {
-            String input = getString(prompt);
-            if (input.matches(regex)) {
-                return input;
-            }
-            System.out.println(Color.DO + "* Lỗi: " + errorMsg + Color.RESET);
-        }
-    }
-
-    // Nhập số nguyên (int)
+    // Nhập số nguyên
     public static int getInt(String prompt) {
         while (true) {
             System.out.print(prompt);
@@ -56,7 +45,7 @@ public class InputUtils {
         }
     }
 
-    // Nhập số nguyên dương (stock, quantity)
+    // Nhập số nguyên dương
     public static int getPositiveInt(String prompt) {
         while (true) {
             int number = getInt(prompt);
@@ -67,7 +56,7 @@ public class InputUtils {
         }
     }
 
-    // Nhập số thực lớn (BigDecimal) (price, total_amount)
+    // Nhập BigDecimal
     public static BigDecimal getBigDecimal(String prompt) {
         while (true) {
             System.out.print(prompt);
@@ -84,7 +73,7 @@ public class InputUtils {
         }
     }
 
-    // Nhập BigDecimal dương - Giá tiền không được âm
+    // Nhập BigDecimal dương
     public static BigDecimal getPositiveBigDecimal(String prompt) {
         while (true) {
             BigDecimal number = getBigDecimal(prompt);
@@ -115,8 +104,7 @@ public class InputUtils {
         }
     }
 
-
-    ///  CÁC HÀM NHẬP CHUỖI OPTIONAL (ENTER ĐỂ KHÔNG NHẬP)
+    ///  CÁC HÀM NHẬP  OPTIONAL (ENTER ĐỂ KHÔNG NHẬP)
     public static String getOptionalString(String prompt) {
         System.out.print( prompt);
         String input = sc.nextLine().trim();
@@ -134,6 +122,46 @@ public class InputUtils {
                 return input;
             }
             System.out.println(Color.DO + "  * Lỗi: " + errorMsg + Color.RESET);
+        }
+    }
+
+    public static Integer getOptionalPositiveInt(String prompt) {
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            System.out.print(prompt);
+            String input = sc.nextLine().trim();
+            if (input.isEmpty()) {
+                return null; // Trả về null nếu nhấn Enter
+            }
+            try {
+                int value = Integer.parseInt(input);
+                if (value >= 0) {
+                    return value;
+                }
+                System.out.println(Color.DO + "* Lỗi: Số lượng không được nhỏ hơn 0!" + Color.RESET);
+            } catch (NumberFormatException e) {
+                System.out.println(Color.DO + "* Lỗi: Vui lòng nhập một số nguyên hợp lệ!" + Color.RESET);
+            }
+        }
+    }
+
+    public static BigDecimal getOptionalBigDecimal(String prompt) {
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            System.out.print(prompt);
+            String input = sc.nextLine().trim();
+            if (input.isEmpty()) {
+                return null; // Trả về null nếu nhấn Enter
+            }
+            try {
+                BigDecimal value = new BigDecimal(input);
+                if (value.compareTo(BigDecimal.ZERO) >= 0) {
+                    return value;
+                }
+                System.out.println(Color.DO + "* Lỗi: Giá tiền không được nhỏ hơn 0!" + Color.RESET);
+            } catch (NumberFormatException e) {
+                System.out.println(Color.DO + "* Lỗi: Vui lòng nhập số tiền hợp lệ!" + Color.RESET);
+            }
         }
     }
 }

@@ -40,6 +40,13 @@ public class ProductServiceImpl implements IProductService {
             return false;
         }
 
+        if (productDAO.isProductInInvoice(id)) {
+            System.out.println(Color.DO+
+                    "* Lỗi: Sản phẩm đã tồn tại trong lịch sử giao dịch không thể xóa!"
+                    + Color.RESET);
+            return false;
+        }
+
         return productDAO.deleteProduct(id);
     }
 

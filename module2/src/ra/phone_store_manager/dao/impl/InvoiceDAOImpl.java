@@ -36,7 +36,7 @@ public class InvoiceDAOImpl implements IInvoiceDAO {
 
            conn.setAutoCommit(false);
 
-           PreparedStatement pCreateInvoice=conn.prepareStatement(sqlCreateInvoice);
+           PreparedStatement pCreateInvoice=conn.prepareStatement(sqlCreateInvoice, Statement.RETURN_GENERATED_KEYS);
            PreparedStatement pCreateInvoiceDetail=conn.prepareStatement(sqlCreateInvoiceDetail);
            PreparedStatement pUpdateStock=conn.prepareStatement(sqlUpdateProductStock);
 

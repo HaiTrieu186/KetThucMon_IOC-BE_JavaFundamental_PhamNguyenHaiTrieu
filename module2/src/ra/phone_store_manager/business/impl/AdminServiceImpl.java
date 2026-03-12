@@ -5,7 +5,7 @@ import ra.phone_store_manager.business.IAdminService;
 import ra.phone_store_manager.dao.impl.AdminDAOImpl;
 import ra.phone_store_manager.model.Admin;
 
-public class AdminSerciveImpl implements IAdminService {
+public class AdminServiceImpl implements IAdminService {
     private static final AdminDAOImpl adminDao = new AdminDAOImpl();
 
     @Override

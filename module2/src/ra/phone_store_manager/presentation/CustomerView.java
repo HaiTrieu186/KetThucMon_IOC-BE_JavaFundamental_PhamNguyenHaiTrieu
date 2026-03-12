@@ -14,37 +14,29 @@ public class CustomerView {
     public static void showCustomerMenu(){
         Scanner sc = new Scanner(System.in);
         int choice;
+        String[] menuOptions = {
+                "1. Hiển thị danh sách khách hàng",
+                "2. Thêm khách hàng mới",
+                "3. Cập nhật thông tin khách hàng",
+                "4. Xóa khách hàng theo ID",
+                "5. Quay lại menu chính"
+        };
 
         while (true) {
             System.out.println("\n" +
                     Color.VANG + Color.BOLD + "+" + "-".repeat(9)
                     + Color.CYAN + Color.BOLD + " QUẢN LÝ KHÁCH HÀNG "
                     + Color.VANG + Color.BOLD + "-".repeat(8) + "+" + Color.RESET);
-            System.out.printf(
-                    Color.VANG + Color.BOLD + "|" + Color.RESET
-                            + " %-35s " +
-                            Color.VANG + Color.BOLD + "|\n" + Color.RESET,
-                    "1. Hiển thị danh sách khách hàng");
-            System.out.printf(
-                    Color.VANG + Color.BOLD + "|" + Color.RESET
-                            + " %-35s " +
-                            Color.VANG + Color.BOLD + "|\n" + Color.RESET,
-                    "2. Thêm khách hàng mới");
-            System.out.printf(
-                    Color.VANG + Color.BOLD + "|" + Color.RESET
-                            + " %-35s " +
-                            Color.VANG + Color.BOLD + "|\n" + Color.RESET,
-                    "3. Cập nhật thông tin khách hàng");
-            System.out.printf(
-                    Color.VANG + Color.BOLD + "|" + Color.RESET
-                            + " %-35s " +
-                            Color.VANG + Color.BOLD + "|\n" + Color.RESET,
-                    "4. Xóa khách hàng theo ID");
-            System.out.printf(
-                    Color.VANG + Color.BOLD + "|" + Color.RESET
-                            + " %-35s " +
-                            Color.VANG + Color.BOLD + "|\n" + Color.RESET,
-                    "5. Quay lại menu chính");
+
+            for (String option : menuOptions) {
+                System.out.printf(
+                        Color.VANG + Color.BOLD + "|" + Color.RESET
+                                + " %-35s " +
+                                Color.VANG + Color.BOLD + "|\n" + Color.RESET,
+                        option
+                );
+            }
+
             System.out.println(
                     Color.VANG + Color.BOLD + "+" + "-".repeat(37) + "+" + Color.RESET);
 

@@ -9,6 +9,7 @@ public interface IProductDAO {
     boolean addProduct(Product product);
     boolean deleteProduct(int id);
     boolean updateProduct(Product product);
+    boolean isProductInInvoice(int productId);
     Product findProductByID(int id);
     List<Product> findAllProducts();
     List<Product> findProductsByBrand(String brand);

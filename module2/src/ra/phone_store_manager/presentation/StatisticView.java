@@ -13,35 +13,30 @@ import java.util.Scanner;
 public class StatisticView {
     private final static IInvoiceService invoiceService = new InvoiceServiceImpl();
 
-    public static void showSatisticView() {
+    public static void showStatisticView() {
         Scanner sc = new Scanner(System.in);
         int choice;
+        String[] menuOptions = {
+                "1. Doanh thu theo ngày",
+                "2. Doanh thu theo tháng",
+                "3. Doanh thu theo năm",
+                "4. Quay lại menu chính"
+        };
 
         while (true) {
             System.out.println("\n" +
-                    Color.VANG + Color.BOLD + "+" + "-".repeat(10)
+                    Color.VANG + Color.BOLD + "+" + "-".repeat(9)
                     + Color.CYAN + Color.BOLD + " THỐNG KÊ DOANH THU "
-                    + Color.VANG + Color.BOLD + "-".repeat(9) + "+" + Color.RESET);
-            System.out.printf(
-                    Color.VANG + Color.BOLD + "|" + Color.RESET
-                            + " %-35s " +
-                            Color.VANG + Color.BOLD + "|\n" + Color.RESET,
-                    "1. Doanh thu theo ngày");
-            System.out.printf(
-                    Color.VANG + Color.BOLD + "|" + Color.RESET
-                            + " %-35s " +
-                            Color.VANG + Color.BOLD + "|\n" + Color.RESET,
-                    "2. Doanh thu theo tháng");
-            System.out.printf(
-                    Color.VANG + Color.BOLD + "|" + Color.RESET
-                            + " %-35s " +
-                            Color.VANG + Color.BOLD + "|\n" + Color.RESET,
-                    "3. Doanh thu theo năm");
-            System.out.printf(
-                    Color.VANG + Color.BOLD + "|" + Color.RESET
-                            + " %-35s " +
-                            Color.VANG + Color.BOLD + "|\n" + Color.RESET,
-                    "4. Xem chi tiết hóa đơn");
+                    + Color.VANG + Color.BOLD + "-".repeat(8) + "+" + Color.RESET);
+
+            for (String option : menuOptions) {
+                System.out.printf(
+                        Color.VANG + Color.BOLD + "|" + Color.RESET
+                                + " %-35s " +
+                                Color.VANG + Color.BOLD + "|\n" + Color.RESET,
+                        option);
+            }
+
             System.out.println(
                     Color.VANG + Color.BOLD + "+" + "-".repeat(37) + "+" + Color.RESET);
 

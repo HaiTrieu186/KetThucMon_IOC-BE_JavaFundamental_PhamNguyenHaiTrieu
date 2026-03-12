@@ -1,19 +1,19 @@
 package ra.phone_store_manager.presentation;
 
 import ra.phone_store_manager.business.IAdminService;
-import ra.phone_store_manager.business.impl.AdminSerciveImpl;
+import ra.phone_store_manager.business.impl.AdminServiceImpl;
 import ra.phone_store_manager.model.Admin;
 import ra.phone_store_manager.utils.helper.Color;
 import ra.phone_store_manager.utils.helper.InputUtils;
 
 public class AdminView {
     public static Admin adminLogin= null;
-    private static final IAdminService adminService= new AdminSerciveImpl();
+    private static final IAdminService adminService= new AdminServiceImpl();
 
     public static void showMenuLogin(){
-        int attempt = 0; // Biến đếm số lần nhập sai
+        int attempt = 0; // Biến đếm số lần nhập sai (tối đa 3 lần)
 
-        while (attempt < 3) { // Cho phép tối đa 3 lần
+        while (attempt < 3) {
 
             System.out.println();
             System.out.println(Color.CYAN + "+".repeat(10)

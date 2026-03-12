@@ -18,57 +18,32 @@ public class ProductView {
     public static void showProductMenu() {
         Scanner sc = new Scanner(System.in);
         int choice;
+        String[] menuOptions = {
+                "1. Hiển thị danh sách sản phẩm",
+                "2. Thêm sản phẩm mới",
+                "3. Cập nhật thông tin sản phẩm",
+                "4. Xóa sản phẩm theo ID",
+                "5. Tìm kiếm theo Brand (Nhãn hiệu)",
+                "6. Tìm kiếm theo tên sản phẩm",
+                "7. Tìm kiếm theo khoảng giá",
+                "8. Tìm kiếm theo tồn kho",
+                "9. Quay lại menu chính"
+        };
 
         while (true) {
             System.out.println("\n" +
                     Color.VANG + Color.BOLD + "+" + "-".repeat(10)
                     + Color.CYAN + Color.BOLD + " QUẢN LÝ SẢN PHẨM "
                     + Color.VANG + Color.BOLD + "-".repeat(9) + "+" + Color.RESET);
-            System.out.printf(
-                    Color.VANG + Color.BOLD + "|" + Color.RESET
-                            + " %-35s " +
-                            Color.VANG + Color.BOLD + "|\n" + Color.RESET,
-                    "1. Hiển thị danh sách sản phẩm");
-            System.out.printf(
-                    Color.VANG + Color.BOLD + "|" + Color.RESET
-                            + " %-35s " +
-                            Color.VANG + Color.BOLD + "|\n" + Color.RESET,
-                    "2. Thêm sản phẩm mới");
-            System.out.printf(
-                    Color.VANG + Color.BOLD + "|" + Color.RESET
-                            + " %-35s " +
-                            Color.VANG + Color.BOLD + "|\n" + Color.RESET,
-                    "3. Cập nhật thông tin sản phẩm");
-            System.out.printf(
-                    Color.VANG + Color.BOLD + "|" + Color.RESET
-                            + " %-35s " +
-                            Color.VANG + Color.BOLD + "|\n" + Color.RESET,
-                    "4. Xóa sản phẩm theo ID");
-            System.out.printf(
-                    Color.VANG + Color.BOLD + "|" + Color.RESET
-                            + " %-35s " +
-                            Color.VANG + Color.BOLD + "|\n" + Color.RESET,
-                    "5. Tìm kiếm theo Brand (Nhãn hiệu)");
-            System.out.printf(
-                    Color.VANG + Color.BOLD + "|" + Color.RESET
-                            + " %-35s " +
-                            Color.VANG + Color.BOLD + "|\n" + Color.RESET,
-                    "6. Tìm kiếm theo tên sản phẩm");
-            System.out.printf(
-                    Color.VANG + Color.BOLD + "|" + Color.RESET
-                            + " %-35s " +
-                            Color.VANG + Color.BOLD + "|\n" + Color.RESET,
-                    "7. Tìm kiếm theo khoảng giá");
-            System.out.printf(
-                    Color.VANG + Color.BOLD + "|" + Color.RESET
-                            + " %-35s " +
-                            Color.VANG + Color.BOLD + "|\n" + Color.RESET,
-                    "8. Tìm kiếm theo tồn kho");
-            System.out.printf(
-                    Color.VANG + Color.BOLD + "|" + Color.RESET
-                            + " %-35s " +
-                            Color.VANG + Color.BOLD + "|\n" + Color.RESET,
-                    "9. Quay lại menu chính");
+
+            for (String option : menuOptions) {
+                System.out.printf(
+                        Color.VANG + Color.BOLD + "|" + Color.RESET
+                                + " %-35s " +
+                                Color.VANG + Color.BOLD + "|\n" + Color.RESET,
+                        option);
+            }
+
             System.out.println(
                     Color.VANG + Color.BOLD + "+" + "-".repeat(37) + "+" + Color.RESET);
 
@@ -166,10 +141,22 @@ public class ProductView {
         System.out.println(Color.VANG + "\n(Mời bạn nhập dữ liệu mới bên dưới)" + Color.RESET);
         Product p = new Product();
         p.setId(id); // Giữ nguyên ID cũ
-        p.setName(InputUtils.getString("Nhập tên mới: "));
-        p.setBrand(InputUtils.getString("Nhập thương hiệu mới: "));
-        p.setPrice(InputUtils.getPositiveBigDecimal("Nhập giá mới (VNĐ): "));
-        p.setStock(InputUtils.getPositiveInt("Nhập số lượng mới: "));
+
+        /// Tên
+        String newName = InputUtils.getOptionalString("Nhập tên sản phẩm mới (Nhấn Enter để giữ nguyên): ");
+        p.setName(newName != null ? newName : currentProduct.getName());
+
+        /// Hãng
+        String newBrand = InputUtils.getOptionalString("Nhập hãng sản xuất mới (Nhấn Enter để giữ nguyên): ");
+        p.setBrand(newBrand != null ? newBrand : currentProduct.getBrand());
+
+        /// Giá (Dùng hàm mới)
+        BigDecimal newPrice = InputUtils.getOptionalBigDecimal("Nhập giá tiền mới (Nhấn Enter để giữ nguyên): ");
+        p.setPrice(newPrice != null ? newPrice : currentProduct.getPrice());
+
+        /// Tồn kho (Dùng hàm mới)
+        Integer newStock = InputUtils.getOptionalPositiveInt("Nhập số lượng tồn kho mới (Nhấn Enter để giữ nguyên): ");
+        p.setStock(newStock != null ? newStock : currentProduct.getStock());
 
         // XÁC NHẬN LƯU THAY ĐỔI
         if (!confirmAction("Bạn có chắc chắn muốn LƯU các thay đổi này không?")) {
@@ -183,6 +170,8 @@ public class ProductView {
             System.out.println(Color.DO + "=> Lỗi: Cập nhật thất bại!" + Color.RESET);
         }
     }
+
+
 
     private static void handleDeleteProduct() {
         System.out.println("\n" + Color.CYAN + "--- XÓA SẢN PHẨM ---" + Color.RESET);
@@ -255,7 +244,7 @@ public class ProductView {
         System.out.println(Color.VANG + line + Color.RESET);
 
         for (Product p : products) {
-            // Chuyển BigDecimal sang String VND (
+            // Chuyển BigDecimal sang String VND
             String formattedPrice = FormatUtils.formatVND(p.getPrice());
             System.out.printf(Color.VANG + "| " + Color.RESET
                             + "%-4d" + Color.VANG + " | " + Color.RESET
