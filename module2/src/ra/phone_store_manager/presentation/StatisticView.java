@@ -120,7 +120,7 @@ public class StatisticView {
         }
 
         while (true) {
-            month = InputUtils.getPositiveInt("Mời bạn nhập năm tháng cần xem: ");
+            month = InputUtils.getPositiveInt("Mời bạn nhập tháng cần xem: ");
             if (month >= 1 && month <= 12) {
                 break;
             }
@@ -154,7 +154,7 @@ public class StatisticView {
                 break;
             }
             System.out.println(Color.DO +
-                    "* Lỗi: Năm không hợp lệ (phải nhỏ ngày hiện tại - " +
+                    "* Lỗi: Ngày không hợp lệ (phải nhỏ hơn hoặc bằng ngày hiện tại - " +
                     FormatUtils.formatDate(LocalDate.now()) + ") !"
                     + Color.RESET);
         }

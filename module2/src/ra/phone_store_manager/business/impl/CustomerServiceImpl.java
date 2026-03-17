@@ -59,6 +59,14 @@ public class CustomerServiceImpl implements ICustomerService {
             return false;
         }
 
+        // Kiểm tra khách hàng đã có hóa đơn chưa
+        if (customerDAO.checkCustomerHasInvoices(id)) {
+            System.out.println(Color.DO +
+                    "* Lỗi: Không thể xóa! Khách hàng này đã có lịch sử mua hàng."
+                    + Color.RESET);
+            return false;
+        }
+
         return customerDAO.deleteCustomer( id );
     }
 

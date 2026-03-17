@@ -34,10 +34,18 @@ public class InvoiceDAOImpl implements IInvoiceDAO {
                    where id = ?;
                    """;
 
+           String sqlCheckStock = """
+                   SELECT stock 
+                   FROM product 
+                   WHERE id = ? 
+                   FOR UPDATE
+                   """;
+
            conn.setAutoCommit(false);
 
            PreparedStatement pCreateInvoice=conn.prepareStatement(sqlCreateInvoice, Statement.RETURN_GENERATED_KEYS);
            PreparedStatement pCreateInvoiceDetail=conn.prepareStatement(sqlCreateInvoiceDetail);
+           PreparedStatement pCheckStock = conn.prepareStatement(sqlCheckStock);
            PreparedStatement pUpdateStock=conn.prepareStatement(sqlUpdateProductStock);
 
 
@@ -54,6 +62,21 @@ public class InvoiceDAOImpl implements IInvoiceDAO {
 
            /// Tạo danh sách chi tiết hóa đơn
            for (InvoiceDetails invoiceDetail : invoiceDetails) {
+               pCheckStock.setInt(1, invoiceDetail.getProduct_id());
+               ResultSet stockRs = pCheckStock.executeQuery();
+
+               if (stockRs.next()) {
+                   int currentStock = stockRs.getInt("stock");
+                   if (currentStock < invoiceDetail.getQuantity()) {
+                       conn.rollback();
+                       System.out.println(Color.DO
+                               + "Không đủ hàng! Sản phẩm ID " + invoiceDetail.getProduct_id()
+                               + " chỉ còn " + currentStock + " trong kho."
+                               + Color.RESET);
+                       return false;
+                   }
+               }
+
                pCreateInvoiceDetail.setInt(1, newInvoiceID);
                pCreateInvoiceDetail.setInt(2, invoiceDetail.getProduct_id());
                pCreateInvoiceDetail.setInt(3, invoiceDetail.getQuantity());

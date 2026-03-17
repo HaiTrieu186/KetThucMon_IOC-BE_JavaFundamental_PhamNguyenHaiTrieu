@@ -99,16 +99,6 @@ public class InvoiceView {
         BigDecimal totalAmount = BigDecimal.ZERO;
         List<InvoiceDetails> cart = new ArrayList<>();
 
-        /// Check danh sách hàng hiện tại còn hàng
-        List<Product> availableProducts = productService.getProductList().stream()
-                .filter(p -> p.getStock() > 0)
-                .toList();
-
-        if (availableProducts.isEmpty()) {
-            System.out.println(Color.DO + "  * Hiện tại tất cả sản phẩm đều đã hết hàng!" + Color.RESET);
-            return;
-        }
-
         /// Nhập ID khách mua
         int customerId = InputUtils.getPositiveInt("Mời bạn nhập ID khách mua: ");
 
@@ -118,7 +108,23 @@ public class InvoiceView {
         }
 
         while (true) {
-            displayAvailableProducts(availableProducts);
+
+            /// hiển thị ds sản phẩm hiện tại
+            List<Product> availableProducts = productService.getProductList().stream()
+                    .filter(p -> p.getStock() > 0)
+                    .toList();
+
+            if (availableProducts.isEmpty()) {
+                if (cart.isEmpty()) {
+                    System.out.println(Color.DO + "  * Hiện tại tất cả sản phẩm đều đã hết hàng!" + Color.RESET);
+                    return;
+                } else {
+                    System.out.println(Color.VANG + "=> Hết hàng để mua thêm. Tiến hành chốt đơn..." + Color.RESET);
+                    break;
+                }
+            }
+
+            displayAvailableProducts(availableProducts, cart);
             int productId = InputUtils.getPositiveInt("Mời bạn chọn ID sản phẩm cần mua: ");
 
             Product product = productService.getProductById(productId);
@@ -186,7 +192,7 @@ public class InvoiceView {
         if ( !invoiceService.addInvoice(invoice, cart)) {
             System.out.println(Color.DO + "=> Lỗi: Thêm hóa đơn thất bại!" + Color.RESET);
         } else {
-            System.out.println(Color.BOLD + Color.XANH_LA + "==> Tạo hóa đơn thành công với !!!" + Color.RESET);
+            System.out.println(Color.BOLD + Color.XANH_LA + "==> Tạo hóa đơn thành công !!!" + Color.RESET);
         }
     }
 
@@ -227,13 +233,13 @@ public class InvoiceView {
         System.out.println(Color.VANG + line + Color.RESET);
     }
 
-    private static void displayAvailableProducts(List<Product> products) {
+    private static void displayAvailableProducts(List<Product> products, List<InvoiceDetails> cart) {
         if (products == null || products.isEmpty()) {
             System.out.println(Color.DO + "  * Không tìm thấy sản phẩm nào!" + Color.RESET);
             return;
         }
 
-        String line = "+" + "-".repeat(6) + "+" + "-".repeat(27) + "+" + "-".repeat(17) + "+" + "-".repeat(20) + "+" + "-".repeat(10) + "+";
+        String line = "+" + "-".repeat(6) + "+" + "-".repeat(27) + "+" + "-".repeat(17) + "+" + "-".repeat(20) + "+" + "-".repeat(10) + "+" + "-".repeat(10) + "+";
         System.out.println(Color.VANG + line);
 
         System.out.printf("| "
@@ -241,23 +247,33 @@ public class InvoiceView {
                         + Color.CAM + "%-25s" + Color.RESET + Color.VANG + " | " + Color.RESET
                         + Color.CAM + "%-15s" + Color.RESET + Color.VANG + " | " + Color.RESET
                         + Color.CAM + "%-18s" + Color.RESET + Color.VANG + " | " + Color.RESET
+                        + Color.CAM + "%-8s" + Color.RESET + Color.VANG + " | " + Color.RESET
                         + Color.CAM + "%-8s" + Color.RESET + Color.VANG + " |\n" + Color.RESET,
-                "ID", "Tên Sản Phẩm", "Thương Hiệu", "Giá (VNĐ)", "Kho");
+                "ID", "Tên Sản Phẩm", "Thương Hiệu", "Giá (VNĐ)", "Kho", "Đã chọn");
         System.out.println(Color.VANG + line + Color.RESET);
 
         for (Product p : products) {
-            String formattedPrice = FormatUtils.formatVND(p.getPrice()); // Đảm bảo bạn gọi đúng hàm formatVND
+            // Tính xem sp này đang có bao nhiêu trong giỏ
+            int inCart = 0;
+            for (InvoiceDetails item : cart) {
+                if (item.getProduct_id() == p.getId()) {
+                    inCart += item.getQuantity();
+                }
+            }
+
             System.out.printf(Color.VANG + "| " + Color.RESET
                             + "%-4d" + Color.VANG + " | " + Color.RESET
                             + "%-25s" + Color.VANG + " | " + Color.RESET
                             + "%-15s" + Color.VANG + " | " + Color.RESET
                             + "%-18s" + Color.VANG + " | " + Color.RESET
-                            + "%-8d " + Color.VANG + "|\n" + Color.RESET,
+                            + "%-8d " + Color.VANG + "| " + Color.RESET
+                            + (inCart > 0 ? Color.XANH_LA : "") + "%-8s" + Color.RESET + Color.VANG + " |\n" + Color.RESET,
                     p.getId(),
                     p.getName().length() > 25 ? p.getName().substring(0, 22) + "..." : p.getName(),
                     p.getBrand().length() > 15 ? p.getBrand().substring(0, 12) + "..." : p.getBrand(),
-                    formattedPrice,
-                    p.getStock());
+                    FormatUtils.formatVND(p.getPrice()),
+                    p.getStock(),
+                    inCart > 0 ? "+" + inCart : "-");
         }
 
         System.out.println(Color.VANG + line + Color.RESET);

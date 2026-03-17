@@ -87,6 +87,24 @@ public class CustomerDAOImpl implements ICustomerDAO {
     }
 
     @Override
+    public boolean checkCustomerHasInvoices(int customerId) {
+        String sql = "SELECT 1 FROM invoice WHERE customer_id = ? LIMIT 1";
+
+        try (Connection conn = ConnectionDB.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, customerId);
+            ResultSet rs = pstmt.executeQuery();
+
+            return rs.next();
+
+        } catch (SQLException e) {
+            System.out.println(Color.DO + "Lỗi SQL: " + e.getMessage() + Color.RESET);
+        }
+        return false;
+    }
+
+    @Override
     public Customer findCustomerByID(int id) {
         String sql = "select * from customer where id=?";
 

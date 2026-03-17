@@ -8,6 +8,7 @@ public interface ICustomerDAO {
     boolean createCustomer(Customer customer);
     boolean updateCustomer(Customer customer);
     boolean deleteCustomer(int id);
+    boolean checkCustomerHasInvoices(int customerId);
     Customer findCustomerByID(int id);
     Customer findCustomerByEmail(String email);
     List<Customer> findAllCustomers();

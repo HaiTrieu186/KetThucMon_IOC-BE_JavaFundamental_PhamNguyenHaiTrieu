@@ -43,7 +43,7 @@ CREATE TABLE if not exists invoice
     customer_id  INT,
     created_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     total_amount DECIMAL(12, 2) NOT NULL,
-    CONSTRAINT fk_customer FOREIGN KEY (customer_id) REFERENCES customer (id) ON DELETE SET NULL
+    CONSTRAINT fk_customer FOREIGN KEY (customer_id) REFERENCES customer (id) ON DELETE RESTRICT
 );
 
 -- 5. Tạo bảng Invoice_details (Chi tiết hóa đơn)
