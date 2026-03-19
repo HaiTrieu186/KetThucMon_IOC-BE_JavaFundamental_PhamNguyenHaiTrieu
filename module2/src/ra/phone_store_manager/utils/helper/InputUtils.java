@@ -89,7 +89,7 @@ public class InputUtils {
 
         while (true) {
             System.out.print(message);
-            String input = sc.nextLine().trim(); // Giả sử biến scanner của bạn tên là scanner
+            String input = sc.nextLine().trim();
 
             if (input.isEmpty()) {
                 System.out.println(Color.DO + "  * Lỗi: Không được để trống. Vui lòng nhập ngày!" + Color.RESET);

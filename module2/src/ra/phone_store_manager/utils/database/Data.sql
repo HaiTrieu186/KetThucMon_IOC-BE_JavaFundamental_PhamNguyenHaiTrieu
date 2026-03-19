@@ -86,12 +86,23 @@ VALUES ('iPhone 15 Pro Max 256GB', 'Apple', 34990000.00, 50),
 
 
 insert into invoice (customer_id, created_at, total_amount)
-values (?,?,?);
+values (?, ?, ?);
 
 insert into invoice_details (invoice_id, product_id, quantity, unit_price)
-values (?,?,?,?);
+values (?, ?, ?, ?);
 
 update product
 set stock = stock - ?
 where id = ?;
+
+
+-- Trả lời câu hỏi thóng kê theo nhiều tháng của thầy.
+select extract(MONTH from created_at) as "Tháng", Sum(total_amount) as "Doanh thu"
+from invoice
+where extract(YEAR from created_at) = ?
+  and (extract(MONTH from created_at)
+    BETWEEN GREATEST(1, EXTRACT(MONTH FROM NOW()) - ? + 1)
+    AND EXTRACT(MONTH FROM NOW()))
+group by extract(MONTH from created_at)
+order by "Tháng";
 
